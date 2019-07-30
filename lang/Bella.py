@@ -1,19 +1,19 @@
 from antlr4 import *
-from bellaLexer import bellaLexer
-from bellaListener import bellaListener
-from bellaParser import bellaParser
+from BellaLexer import BellaLexer
+from BellaListener import BellaListener
+from BellaParser import BellaParser
 import sys
 
-class BellaPrintListener(bellaListener):
+class BellaPrintListener(BellaListener):
     def enterHi(self, ctx):
         print("Hello: %s" % ctx.ID())
 
 def main():
-    lexer = bellaLexer(StdinStream())
+    lexer = BellaLexer(StdinStream())
     stream = CommonTokenStream(lexer)
-    parser = bellaParser(stream)
+    parser = BellaParser(stream)
     tree = parser.hi()
-    printer = bellaPrintListener()
+    printer = BellaPrintListener()
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
 
