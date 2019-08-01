@@ -1,8 +1,10 @@
+import sys
+
 from antlr4 import *
 from BellaLexer import BellaLexer
 from BellaListener import BellaListener
 from BellaParser import BellaParser
-import sys
+
 
 class BellaPrintListener(BellaListener):
     def enterHi(self, ctx):
