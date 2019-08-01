@@ -7,25 +7,22 @@ from BellaParser import BellaParser
 
 
 class BellaPrintListener(BellaListener):
-    def enterHi(self, ctx):
-        print("Hello: %s" % ctx.ID())
 
-class BellaConcatListener(BellaListener):
-    concat = ""
-    def enterHi(self, ctx):
-        self.concat = self.concat + ctx.ID().getText()
+    def enterUp(self, ctx):
+        print("up: %s" % ctx.ID())
+
+    def enterDown(self, ctx):
+        print("down: %s" % ctx.ID())
+
 
 def main():
     lexer = BellaLexer(StdinStream())
     stream = CommonTokenStream(lexer)
     parser = BellaParser(stream)
-    tree = parser.hi()
+    tree = parser.program()
     printer = BellaPrintListener()
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
-    concatenator = BellaConcatListener()
-    walker.walk(concatenator, tree)
-    print("concatenator.concat: " + concatenator.concat)
 
 if __name__ == '__main__':
     main()
