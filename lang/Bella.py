@@ -5,14 +5,31 @@ from BellaLexer import BellaLexer
 from BellaListener import BellaListener
 from BellaParser import BellaParser
 
+class Position(object):
+    x = 0;
 
-class BellaPrintListener(BellaListener):
+    def up(self, distance):
+        self.x = self.x + distance;
+
+    def down(self, distance):
+        self.x = self.x - distance;
+
+
+class MovesListener(BellaListener):
+
+    position = Position()
 
     def enterUp(self, ctx):
-        print("up: %s" % ctx.ID())
+        """
+        Flying! This method moves up the position of the drone.
+        @param ctx.NUMBER the distance to fly.
+        """
+        self.position.up(int(ctx.NUMBER().getText()))
+        print("current.x: %s" % self.position.x)
 
     def enterDown(self, ctx):
-        print("down: %s" % ctx.ID())
+        self.position.down(int(ctx.NUMBER().getText()))
+        print("current.x: %s" % self.position.x)
 
 
 def main():
@@ -20,7 +37,7 @@ def main():
     stream = CommonTokenStream(lexer)
     parser = BellaParser(stream)
     tree = parser.program()
-    printer = BellaPrintListener()
+    printer = MovesListener()
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
 
