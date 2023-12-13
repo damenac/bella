@@ -1,4 +1,7 @@
-# bella
+# Bella
+
+Bella is my cat :)
+In this repo, I am exploring the construction of software languages in python. The grammar is written in antlr, the parser is generated in python. 
 
 ## Installing antlr as a module of the python distribution
 
